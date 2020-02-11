@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Auxiliary from "./../../hoc/Auxiliary";
 import Burger from "./../../components/Burger/Burger";
 import { IIngredients } from "./../../models/Ingredients";
+import BuildControls from './../../components/Burger/BuildControls/BuildControls';
 
 const BurgerBuilder = () => {
   const [ingredients, setIngredients] = useState<IIngredients>({
@@ -14,7 +15,7 @@ const BurgerBuilder = () => {
   return (
     <Auxiliary>
       <Burger ingredients={ingredients} />
-      <div>Build Controls</div>
+      <BuildControls />
     </Auxiliary>
   );
 };
