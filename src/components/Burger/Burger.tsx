@@ -20,7 +20,7 @@ const Burger: React.FC<IProps> = props => {
     }, []);
 
     if(transformIngredients.length === 0) {
-        transformIngredients = [<p>Please Add Ingredients</p>]
+        transformIngredients = [<p key="ExtraText">Please Add Ingredients</p>]
     }
   return (
     <div className={classes.Burger}>

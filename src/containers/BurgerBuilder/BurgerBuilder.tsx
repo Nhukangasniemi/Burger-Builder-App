@@ -34,16 +34,26 @@ const BurgerBuilder = () => {
 
   const removeIngredientHandler = (type: string) => {
     const oldCount = ingredients[type] as number;
+    if (oldCount <= 0) {
+      return;
+    }
     const updatedCounted = oldCount - 1;
     setIngredients(prevIng => ({ ...prevIng, [type]: updatedCounted }));
     const priceAddition = INGREDIENT_PRICES[type];
     setTotalPrice(prevPrice => prevPrice - priceAddition);
   };
 
+  let disabledInfo: {[key: string]: boolean} = {}
+
+  for (let key in ingredients) {
+    disabledInfo[key] = (ingredients[key] <= 0 as boolean)
+  }
+
   return (
     <Auxiliary>
       <Burger ingredients={ingredients} />
       <BuildControls
+        disabledInfo={disabledInfo}
         ingredientAdded={addIngredientHandler}
         ingredientRemoved={removeIngredientHandler}
       />

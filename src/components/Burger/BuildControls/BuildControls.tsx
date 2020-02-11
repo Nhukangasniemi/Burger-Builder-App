@@ -12,16 +12,19 @@ const controls = [
 interface IProps {
   ingredientAdded: (type: string) => void;
   ingredientRemoved: (type: string) => void;
+  disabledInfo: {[key: string]: boolean}
 }
 
 const BuildControls: React.FC<IProps> = props => {
-  const { ingredientAdded, ingredientRemoved } = props;
+  const { ingredientAdded, ingredientRemoved, disabledInfo } = props;
+
   return (
     <div className={classes.BuildControls}>
       {controls.map(control => (
         <BuildControl
           added={() => ingredientAdded(control.type)}
           removed={() => ingredientRemoved(control.type)}
+          disabledInfo={disabledInfo[control.type]}
           key={control.label}
           label={control.label}
         />
