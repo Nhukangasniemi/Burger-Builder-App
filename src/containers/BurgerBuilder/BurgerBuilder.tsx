@@ -3,6 +3,8 @@ import Auxiliary from "./../../hoc/Auxiliary";
 import Burger from "./../../components/Burger/Burger";
 import { IIngredients } from "./../../models/Ingredients";
 import BuildControls from "./../../components/Burger/BuildControls/BuildControls";
+import Modal from "./../../UI/Modal/Modal";
+import OrderSummary from "./../../components/Burger/OrderSummary/OrderSummary";
 
 interface IPrice {
   [key: string]: number;
@@ -24,8 +26,9 @@ const BurgerBuilder = () => {
   });
   const [totalPrice, setTotalPrice] = useState(4);
   const [purchasable, setPurchasable] = useState(false);
+  const [purchasing, setPurchasing] = useState(false);
 
-  const updatePurchaseState = () => {
+  const updatePurchaseState = (ingredients: IIngredients) => {
     const sum = Object.values(ingredients).reduce(
       (acc, currentValue) => acc + currentValue,
       0
@@ -33,12 +36,22 @@ const BurgerBuilder = () => {
     setPurchasable((sum > 0) as boolean);
   };
 
+  const purchaseHandler = () => {
+    setPurchasing(true);
+  };
+
+  const purchaseCancelHandler = () => {
+    setPurchasing(false)
+  }
+
   const addIngredientHandler = (type: string) => {
     const oldCount = ingredients[type] as number;
     const updatedCounted = oldCount + 1;
-    setIngredients(prevIng => ({ ...prevIng, [type]: updatedCounted }));
+    const updatedIngredients = { ...ingredients, [type]: updatedCounted };
+    setIngredients(updatedIngredients);
     const priceAddition = INGREDIENT_PRICES[type];
     setTotalPrice(prevPrice => prevPrice + priceAddition);
+    updatePurchaseState(updatedIngredients);
   };
 
   const removeIngredientHandler = (type: string) => {
@@ -47,9 +60,11 @@ const BurgerBuilder = () => {
       return;
     }
     const updatedCounted = oldCount - 1;
-    setIngredients(prevIng => ({ ...prevIng, [type]: updatedCounted }));
+    const updatedIngredients = { ...ingredients, [type]: updatedCounted };
+    setIngredients(updatedIngredients);
     const priceAddition = INGREDIENT_PRICES[type];
     setTotalPrice(prevPrice => prevPrice - priceAddition);
+    updatePurchaseState(updatedIngredients);
   };
 
   let disabledInfo: { [key: string]: boolean } = {};
@@ -60,6 +75,9 @@ const BurgerBuilder = () => {
 
   return (
     <Auxiliary>
+      <Modal show={purchasing} modalClosed={purchaseCancelHandler}>
+        <OrderSummary ingredients={ingredients} />
+      </Modal>
       <Burger ingredients={ingredients} />
       <BuildControls
         price={totalPrice}
@@ -67,6 +85,7 @@ const BurgerBuilder = () => {
         ingredientAdded={addIngredientHandler}
         ingredientRemoved={removeIngredientHandler}
         purchasable={purchasable}
+        ordered={purchaseHandler}
       />
     </Auxiliary>
   );

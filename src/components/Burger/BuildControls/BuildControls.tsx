@@ -15,14 +15,24 @@ interface IProps {
   disabledInfo: { [key: string]: boolean };
   price: number;
   purchasable: boolean;
+  ordered: () => void
 }
 
 const BuildControls: React.FC<IProps> = props => {
-  const { ingredientAdded, ingredientRemoved, disabledInfo, price, purchasable } = props;
+  const {
+    ingredientAdded,
+    ingredientRemoved,
+    disabledInfo,
+    price,
+    purchasable,
+    ordered
+  } = props;
 
   return (
     <div className={classes.BuildControls}>
-      <p>Current price: <strong>{price.toFixed(2)}</strong></p>
+      <p>
+        Current price: <strong>{price.toFixed(2)}</strong>
+      </p>
       {controls.map(control => (
         <BuildControl
           added={() => ingredientAdded(control.type)}
@@ -32,7 +42,9 @@ const BuildControls: React.FC<IProps> = props => {
           label={control.label}
         />
       ))}
-      <button disabled={!purchasable} className={classes.OrderButton}>ORDER NOW</button>
+      <button onClick={ordered} disabled={!purchasable} className={classes.OrderButton}>
+        ORDER NOW
+      </button>
     </div>
   );
 };
