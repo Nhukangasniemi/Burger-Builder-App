@@ -9,7 +9,7 @@ const BurgerIngredient: React.FC<IProps> = (props: IProps) => {
   let ingredient = null;
 
   switch (props.type) {
-    case "bread-botton":
+    case "bread-bottom":
       ingredient = <div className={classes.BreadBottom}></div>;
       break;
     case "bread-top":
@@ -23,7 +23,7 @@ const BurgerIngredient: React.FC<IProps> = (props: IProps) => {
     case "meat":
       ingredient = <div className={classes.Meat}></div>;
       break;
-    case "chease":
+    case "cheese":
       ingredient = <div className={classes.Cheese}></div>;
       break;
     case "bacon":

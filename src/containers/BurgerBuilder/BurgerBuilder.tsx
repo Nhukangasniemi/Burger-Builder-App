@@ -1,13 +1,22 @@
-import React from 'react'
-import Auxiliary from './../../hoc/Auxiliary';
+import React, { useState } from "react";
+import Auxiliary from "./../../hoc/Auxiliary";
+import Burger from "./../../components/Burger/Burger";
+import { IIngredients } from "./../../models/Ingredients";
 
 const BurgerBuilder = () => {
-    return (
-        <Auxiliary>
-            <div>Burger</div>
-            <div>Build Controls</div>
-        </Auxiliary>
-    )
-}
+  const [ingredients, setIngredients] = useState<IIngredients>({
+    salad: 1,
+    bacon: 1,
+    cheese: 2,
+    meat: 2
+  });
 
-export default BurgerBuilder
+  return (
+    <Auxiliary>
+      <Burger ingredients={ingredients} />
+      <div>Build Controls</div>
+    </Auxiliary>
+  );
+};
+
+export default BurgerBuilder;
