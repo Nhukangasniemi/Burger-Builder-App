@@ -9,13 +9,24 @@ interface IProps {
 
 const Burger: React.FC<IProps> = props => {
   const { ingredients } = props;
-  const transformIngredients = Object.keys(ingredients).map(igKey =>
-    [...Array(ingredients[igKey])].map((_, i) => <BurgerIngredient type={igKey} key={igKey+i} />)
-  );
+  let transformIngredients = Object.keys(ingredients)
+    .map(igKey =>
+      [...Array(ingredients[igKey])].map((_, i) => (
+        <BurgerIngredient type={igKey} key={igKey + i} />
+      ))
+    )
+    .reduce((arr, el) => {
+      return arr.concat(el);
+    }, []);
 
+    if(transformIngredients.length === 0) {
+        transformIngredients = [<p>Please Add Ingredients</p>]
+    }
   return (
     <div className={classes.Burger}>
+      <BurgerIngredient type="bread-top" />
       {transformIngredients}
+      <BurgerIngredient type="bread-bottom" />
     </div>
   );
 };
