@@ -14,10 +14,11 @@ interface IProps {
   ingredientRemoved: (type: string) => void;
   disabledInfo: { [key: string]: boolean };
   price: number;
+  purchasable: boolean;
 }
 
 const BuildControls: React.FC<IProps> = props => {
-  const { ingredientAdded, ingredientRemoved, disabledInfo, price } = props;
+  const { ingredientAdded, ingredientRemoved, disabledInfo, price, purchasable } = props;
 
   return (
     <div className={classes.BuildControls}>
@@ -31,6 +32,7 @@ const BuildControls: React.FC<IProps> = props => {
           label={control.label}
         />
       ))}
+      <button disabled={!purchasable} className={classes.OrderButton}>ORDER NOW</button>
     </div>
   );
 };

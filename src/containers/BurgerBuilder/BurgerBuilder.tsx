@@ -23,6 +23,15 @@ const BurgerBuilder = () => {
     meat: 0
   });
   const [totalPrice, setTotalPrice] = useState(4);
+  const [purchasable, setPurchasable] = useState(false);
+
+  const updatePurchaseState = () => {
+    const sum = Object.values(ingredients).reduce(
+      (acc, currentValue) => acc + currentValue,
+      0
+    );
+    setPurchasable((sum > 0) as boolean);
+  };
 
   const addIngredientHandler = (type: string) => {
     const oldCount = ingredients[type] as number;
@@ -57,6 +66,7 @@ const BurgerBuilder = () => {
         disabledInfo={disabledInfo}
         ingredientAdded={addIngredientHandler}
         ingredientRemoved={removeIngredientHandler}
+        purchasable={purchasable}
       />
     </Auxiliary>
   );
