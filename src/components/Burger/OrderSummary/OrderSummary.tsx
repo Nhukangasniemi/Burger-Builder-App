@@ -1,5 +1,5 @@
 import React from "react";
-import Auxiliary from "./../../../hoc/Auxiliary";
+import Auxiliary from "../../../hoc/Auxiliary/Auxiliary";
 import { IIngredients } from "./../../../models/Ingredients";
 import Button from "./../../../UI/Button/Button";
 
@@ -12,6 +12,7 @@ interface IProps {
 
 const OrderSummary = (props: IProps) => {
   const { ingredients, purchaseCancelled, purchaseContinued, price } = props;
+
   const ingredientSummary = Object.keys(ingredients).map(key => {
     return (
       <li key={key}>

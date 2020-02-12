@@ -1,12 +1,14 @@
 import React from "react";
 import classes from "./Modal.module.css";
-import Auxiliary from "../../hoc/Auxiliary";
+import Auxiliary from "../../hoc/Auxiliary/Auxiliary";
 import Backdrop from './../Backdrop/Backdrop';
 
-const Modal = (props: any) => {
+const Modal = React.memo((props: any) => {
+  const {modalClosed, show} = props
+
   return (
     <Auxiliary>
-        <Backdrop show={props.show} clicked={props.modalClosed} />
+        <Backdrop show={show} clicked={modalClosed} />
       <div
         className={classes.Modal}
         style={{
@@ -18,6 +20,6 @@ const Modal = (props: any) => {
       </div>
     </Auxiliary>
   );
-};
+});
 
 export default Modal;

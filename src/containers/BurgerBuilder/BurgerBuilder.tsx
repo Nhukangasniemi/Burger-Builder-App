@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Auxiliary from "./../../hoc/Auxiliary";
+import React, { useState, useCallback } from "react";
+import Auxiliary from "../../hoc/Auxiliary/Auxiliary";
 import Burger from "./../../components/Burger/Burger";
 import { IIngredients } from "./../../models/Ingredients";
 import BuildControls from "./../../components/Burger/BuildControls/BuildControls";
@@ -40,9 +40,9 @@ const BurgerBuilder = () => {
     setPurchasing(true);
   };
 
-  const purchaseCancellHandler = () => {
+  const purchaseCancellHandler = useCallback(() => {
     setPurchasing(false);
-  };
+  }, []);
 
   const purchaseContinueHandler = () => {
     alert("You continue!");
@@ -81,7 +81,7 @@ const BurgerBuilder = () => {
     <Auxiliary>
       <Modal show={purchasing} modalClosed={purchaseCancellHandler}>
         <OrderSummary
-         price={totalPrice}
+          price={totalPrice}
           ingredients={ingredients}
           purchaseCancelled={purchaseCancellHandler}
           purchaseContinued={purchaseContinueHandler}
