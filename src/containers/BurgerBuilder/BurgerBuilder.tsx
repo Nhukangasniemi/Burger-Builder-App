@@ -40,9 +40,13 @@ const BurgerBuilder = () => {
     setPurchasing(true);
   };
 
-  const purchaseCancelHandler = () => {
-    setPurchasing(false)
-  }
+  const purchaseCancellHandler = () => {
+    setPurchasing(false);
+  };
+
+  const purchaseContinueHandler = () => {
+    alert("You continue!");
+  };
 
   const addIngredientHandler = (type: string) => {
     const oldCount = ingredients[type] as number;
@@ -75,8 +79,12 @@ const BurgerBuilder = () => {
 
   return (
     <Auxiliary>
-      <Modal show={purchasing} modalClosed={purchaseCancelHandler}>
-        <OrderSummary ingredients={ingredients} />
+      <Modal show={purchasing} modalClosed={purchaseCancellHandler}>
+        <OrderSummary
+          ingredients={ingredients}
+          purchaseCancelled={purchaseCancellHandler}
+          purchaseContinued={purchaseContinueHandler}
+        />
       </Modal>
       <Burger ingredients={ingredients} />
       <BuildControls
