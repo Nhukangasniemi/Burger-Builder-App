@@ -20,7 +20,7 @@ const INGREDIENT_PRICES: IPrice = {
   bacon: 0.7
 };
 
-const BurgerBuilder = () => {
+const BurgerBuilder = (props: any) => {
   const [ingredients, setIngredients] = useState<IIngredients>({
     bacon: 0,
     salad: 0,
@@ -50,29 +50,30 @@ const BurgerBuilder = () => {
   }, []);
 
   const purchaseContinueHandler = async () => {
-    try {
-      setLoading(true);
-      const order = {
-        ingredients,
-        price: totalPrice,
-        customer: {
-          name: "Nhu Kangasniemi",
-          address: {
-            street: "Keinulaudantie 1",
-            zipCode: "00940",
-            country: "Finland"
-          }
-        },
-        deliveryMethod: "fastest"
-      };
-      await axios.post("/orders.json", order);
-      setLoading(false);
-      setPurchasing(false);
-    } catch (err) {
-      console.log(err);
-      setLoading(false);
-      setPurchasing(false);
-    }
+      props.history!.push('/checkout', ingredients)
+    // try {
+    //   setLoading(true);
+    //   const order = {
+    //     ingredients,
+    //     price: totalPrice,
+    //     customer: {
+    //       name: "Nhu Kangasniemi",
+    //       address: {
+    //         street: "Keinulaudantie 1",
+    //         zipCode: "00940",
+    //         country: "Finland"
+    //       }
+    //     },
+    //     deliveryMethod: "fastest"
+    //   };
+    //   await axios.post("/orders.json", order);
+    //   setLoading(false);
+    //   setPurchasing(false);
+    // } catch (err) {
+    //   console.log(err);
+    //   setLoading(false);
+    //   setPurchasing(false);
+    // }
   };
 
   const addIngredientHandler = (type: string) => {
