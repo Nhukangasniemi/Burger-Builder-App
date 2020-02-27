@@ -8,7 +8,7 @@ type MyButton = {
 interface IProps {
   children: React.ReactNode;
   btnType: any;
-  clicked: () => void;
+  clicked: (e?: any) => void;
 }
 
 const Button = (props: IProps) => {

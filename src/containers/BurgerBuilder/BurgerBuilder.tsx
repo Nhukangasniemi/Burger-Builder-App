@@ -50,30 +50,16 @@ const BurgerBuilder = (props: any) => {
   }, []);
 
   const purchaseContinueHandler = async () => {
-      props.history!.push('/checkout', ingredients)
-    // try {
-    //   setLoading(true);
-    //   const order = {
-    //     ingredients,
-    //     price: totalPrice,
-    //     customer: {
-    //       name: "Nhu Kangasniemi",
-    //       address: {
-    //         street: "Keinulaudantie 1",
-    //         zipCode: "00940",
-    //         country: "Finland"
-    //       }
-    //     },
-    //     deliveryMethod: "fastest"
-    //   };
-    //   await axios.post("/orders.json", order);
-    //   setLoading(false);
-    //   setPurchasing(false);
-    // } catch (err) {
-    //   console.log(err);
-    //   setLoading(false);
-    //   setPurchasing(false);
-    // }
+    const queryParams = []
+    for(let i in ingredients) {
+      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(ingredients[i]))
+    }
+    queryParams.push('price=' + totalPrice)
+    const query = queryParams.join('&')
+    props.history!.push({
+        pathname: '/checkout',
+        search: '?' + query
+      })
   };
 
   const addIngredientHandler = (type: string) => {
